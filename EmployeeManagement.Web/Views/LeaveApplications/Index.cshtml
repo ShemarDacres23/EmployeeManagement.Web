@@ -1,0 +1,63 @@
+﻿@model IEnumerable<EmployeeManagement.Web.Models.LeaveApplication>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"> <i class="fa fa-plus"></i> Add New Leave Application</a>
+</p>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Leave Application List</h2>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Employee)</th>
+                    <th>@Html.DisplayNameFor(model => model.NoOfDays)</th>
+                    <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Duration)</th>
+                    <th>@Html.DisplayNameFor(model => model.LeaveType)</th>
+                    <th>@Html.DisplayNameFor(model => model.Attachment)</th>
+                    <th>@Html.DisplayNameFor(model => model.ApplicationStatus)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Employee.FullName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NoOfDays)</td>
+                        <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Duration.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LeaveType.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Attachment)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ApplicationStatus.Description)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil-alt"></i> Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                <i class="fa fa-eye"></i> Details
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
