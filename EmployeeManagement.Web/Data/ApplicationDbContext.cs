@@ -32,25 +32,23 @@ namespace EmployeeManagement.Web.Data
                 .HasForeignKey(f => f.DurationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Salary>()
+             .HasOne(s => s.Employee)
+             .WithMany() // or .WithMany(e => e.Salaries) if you have a collection in Employee
+             .HasForeignKey(s => s.EmployeeId)
+             .OnDelete(DeleteBehavior.Cascade); // or Restrict
 
-            modelBuilder.Entity<EmployeeSalary>()
-                .Property(e => e.BasicSalary)
-                .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<EmployeeSalary>()
-                .Property(e => e.Bonus)
-                .HasColumnType("decimal(18,2)");
         }
 
-
-        public DbSet <Employee> Employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentRole> DepartmentRoles { get; set; }
         public DbSet<SystemCode> SystemCodes { get; set; }
         public DbSet<SystemCodeDetail> SystemCodeDetails { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
-       public DbSet<LeaveApplication> LeaveApplications { get; set; }
-       public DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
+        public DbSet<LeaveApplication> LeaveApplications { get; set; }
+        public DbSet<Salary> Salaries { get; set;}
+        public DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
+        public DbSet<EmployeeLeaveApplication> EmployeeLeaveApplications { get; set; }
     }
 }

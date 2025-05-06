@@ -1,75 +1,70 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace EmployeeManagement.Web.Models
 {
-    public class EmployeeSalary
+    public class EmployeeSalary : UserActivity
     {
         public int Id { get; set; }
+        public int EmployeeId {get; set;}
+        public string FullName { get; set; }
 
-        [Display(Name = "Employee ID Number")]
-        public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
-
-        [Display(Name = "Basic Salary")]
+        [DataType(DataType.Currency)]
+        [Precision(18, 2)]
         public decimal BasicSalary { get; set; }
 
-        [Display(Name = "Bonus")]
-        public decimal Bonus { get; set; }
+        [Precision(18, 2)]
+        public decimal Overtime { get; set; }
 
-        // Automatically calculate deductions based on salary rates
-        private decimal _eduTaxRate = 0.0225m;  // 2.25% Education Tax
-        private decimal _nisRate = 0.03m;       // 3% National Insurance Scheme
-        private decimal _nhtRate = 0.03m;       // 3% National Housing Trust
-
-        [Display(Name = "Education Tax (EduTax) Fee")]
-        public decimal EduTax
-        {
-            get
-            {
-                return (BasicSalary + Bonus) * _eduTaxRate;
-            }
-        }
-
-        [Display(Name = "National Insurance Scheme (NIS) Fee")]
+        // Deductions calculated from BasicSalary
+        [Precision(18, 2)]
         public decimal NIS
         {
             get
             {
-                return (BasicSalary + Bonus) * _nisRate;
+                return Math.Round(BasicSalary * 0.03m, 2); // 3%
             }
         }
 
-        [Display(Name = "National Housing Trust (NHT) Fee")]
+        [Precision(18, 2)]
         public decimal NHT
         {
             get
             {
-                return (BasicSalary + Bonus) * _nhtRate;
+                return Math.Round(BasicSalary * 0.02m, 2); // 2%
             }
         }
 
+        [Precision(18, 2)]
+        public decimal EducationTax
+        {
+            get
+            {
+                return Math.Round(BasicSalary * 0.0225m, 2); // 2.25%
+            }
+        }
 
-        [Display(Name = "Total Deductions")]
+        // Total deductions = fixed deduction + statutory deductions
         public decimal TotalDeductions
         {
             get
             {
-                return EduTax + NIS + NHT;
+                return NIS + NHT + EducationTax;
             }
         }
 
-        [Display(Name = "Total Salary")]
-        public decimal TotalSalary
+        [Precision(18, 2)]
+        public decimal NetPay
         {
             get
             {
-                return BasicSalary + Bonus - TotalDeductions;
+                return (BasicSalary + Overtime) - TotalDeductions;
             }
         }
 
-        [Display(Name = "Payment Date")]
         public DateTime PaymentDate { get; set; }
-
         public string Description { get; set; }
     }
 }

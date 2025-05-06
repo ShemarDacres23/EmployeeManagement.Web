@@ -1,0 +1,132 @@
+﻿@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - EduCa Academy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-card {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 2rem;
+        }
+
+        .btn-primary {
+            border-radius: 2rem;
+        }
+
+        h1, h4 {
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="text-center mb-4">
+            <img src="~/AdminLTE/dist/img/EducaLogo.png" alt="EduCa Logo"
+                 class="brand-image img-circle elevation-3"
+                 style="opacity: .8; width: 100px;" />
+        </div>
+
+        <h2 style="text-align: center;">EduCa Academy Employee Management System</h2>
+
+        <h1 class="mb-4 text-center">@ViewData["Title"]</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <section>
+                    <form id="register" method="post" class="register-card">
+                        <h4 class="mb-3">Create a new account</h4>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label"></label>
+                            <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Password" class="form-label"></label>
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+
+                        <div class="text-center">
+                            <p><a id="login-link" asp-page="./Login">Already have an account? Log in here</a></p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-md-6 col-md-offset-2 mt-4 mt-md-0">
+                <section class="register-card">
+                    <h4 class="mb-3">About the EduCa Academy System</h4>
+                    <hr />
+
+                    <!-- Added Employee Info and Payroll Management Section -->
+                    <div class="text-center mb-4">
+                        <img src="~/AdminLTE/dist/img/employee-info.jpg" alt="Employee Info Image" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;" />
+                    </div>
+                    <div class="text-center">
+                        <h5>Welcome to the EduCa Academy Employee Management System</h5>
+                        <p>EduCa Academy offers a comprehensive platform to manage employees, track payroll, and streamline HR processes. Once registered, you can easily access employee records, payroll reports, and other vital HR functions.</p>
+                        <p><strong>Payroll Management</strong> allows employees to access their pay stubs, track wages, and manage tax deductions efficiently. This system simplifies the HR workload while providing employees with all necessary information at their fingertips.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

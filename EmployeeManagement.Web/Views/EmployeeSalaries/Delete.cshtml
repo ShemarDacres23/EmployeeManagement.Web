@@ -12,10 +12,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee)
+            @Html.DisplayNameFor(model => model.EmployeeId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Id)
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.BasicSalary)
@@ -24,10 +30,10 @@
             @Html.DisplayFor(model => model.BasicSalary)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bonus)
+            @Html.DisplayNameFor(model => model.Overtime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bonus)
+            @Html.DisplayFor(model => model.Overtime)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PaymentDate)
@@ -40,6 +46,30 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModifiedById)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedById)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
     </dl>
     

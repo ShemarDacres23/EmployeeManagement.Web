@@ -15,7 +15,8 @@ namespace EmployeeManagement.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return !User.Identity.IsAuthenticated? this.Redirect ("~/Identity/Account/Login") : View();
+            //return View();
         }
 
         public IActionResult Privacy()

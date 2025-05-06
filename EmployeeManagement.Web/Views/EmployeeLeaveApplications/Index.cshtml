@@ -1,0 +1,104 @@
+﻿@model IEnumerable<EmployeeManagement.Web.Models.EmployeeLeaveApplication>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"> <i class="fa fa-plus"></i> Add New Leave Application</a>
+</p>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Leave Application List</h2>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.EmployeeId)</th>
+                    <th>@Html.DisplayNameFor(model => model.LeaveType)</th>
+                    <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumberOfDays)</th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumberOfDays)
+                        </td>
+                        <td>
+                            @if (item.Status == "Approved")
+                            {
+                                <span class="text-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                            }
+                            else if (item.Status == "Pending")
+                            {
+                                <span class="text-warning">@Html.DisplayFor(modelItem => item.Status)</span>
+                            }
+                            else if (item.Status == "Not Approved")
+                            {
+                                <span class="text-danger">@Html.DisplayFor(modelItem => item.Status)</span>
+                            }
+                            else
+                            {
+                                <span>@Html.DisplayFor(modelItem => item.Status)</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton_@item.Id"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton_@item.Id">
+                                    <li>
+                                        <a class="dropdown-item btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                                            <i class="fa fa-pencil-alt"></i> Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item btn btn-warning btn-sm" asp-action="Details" asp-route-id="@item.Id">
+                                            <i class="fa fa-eye"></i> Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

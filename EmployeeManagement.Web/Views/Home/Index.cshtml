@@ -1,68 +1,259 @@
 ﻿@{
     ViewData["Title"] = "Employees";
 }
-
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-info">
+        <div class="small-box bg-gradient-info shadow-lg">
             <div class="inner">
-                <h3>150</h3>
-
-                <p>New Orders</p>
+                <h3 class="display-4">15</h3>
+                <p>Total Employees</p>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-users"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer text-uppercase">More info <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-success">
+        <div class="small-box bg-gradient-success shadow-lg">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
+                <h3 class="display-4">85<sup>%</sup></h3>
+                <p>Attendance Rate</p>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer text-uppercase">More info <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-warning">
+        <div class="small-box bg-gradient-warning shadow-lg">
             <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
+                <h3 class="display-4">3</h3>
+                <p>New Hires</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-user-plus"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer text-uppercase">More info <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-danger">
+        <div class="small-box bg-gradient-danger shadow-lg">
             <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
+                <h3 class="display-4">3</h3>
+                <p>Pending Resignations</p>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-exclamation-circle"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer text-uppercase">More info <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
 </div>
-<!-- /.row -->
+
 <!-- Main row -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Attendance Section -->
+        <div class="card shadow-xl mb-4" style="background: #1c2a48; color: #f0f0f0;">
+            <div class="card-header bg-gradient-primary text-white rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-calendar-check mr-2"></i> Attendance Overview
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-sm-3 mb-3">
+                        <h5 class="text-success">John Doe</h5>
+                        <span class="badge badge-success">Present</span><br>
+                        <small>Checked in: 8:45 AM</small>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <h5 class="text-warning">Jane Smith</h5>
+                        <span class="badge badge-warning text-dark">Late</span><br>
+                        <small>Checked in: 9:15 AM</small>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <h5 class="text-danger">Michael Johnson</h5>
+                        <span class="badge badge-danger">Absent</span><br>
+                        <small>Sick Leave</small>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <h5 class="text-success">Emily Davis</h5>
+                        <span class="badge badge-success">Present</span><br>
+                        <small>Checked in: 8:50 AM</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Performance Reviews Section -->
+        <div class="card shadow-xl mb-4" style="background: #2b3c4c; color: #f1f5f9;">
+            <div class="card-header bg-gradient-success text-white rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-chart-line mr-2"></i> Performance Reviews
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <h5>John Doe</h5>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar bg-success" style="width: 95%"></div>
+                        </div>
+                        <small>Exceeds Expectations</small>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Jane Smith</h5>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar bg-info" style="width: 78%"></div>
+                        </div>
+                        <small>Meets Expectations</small>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Michael Johnson</h5>
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar bg-danger" style="width: 50%"></div>
+                        </div>
+                        <small>Needs Improvement</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training & Development Section -->
+        <div class="card shadow-xl mb-4" style="background: #1c2a48; color: #d1e7f7;">
+            <div class="card-header bg-gradient-info text-white rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i> Training & Development
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-around">
+                    <div class="p-2">
+                        <i class="fas fa-certificate fa-2x text-info mb-2"></i>
+                        <h6>John Doe</h6>
+                        <small>Completed: Advanced Excel</small>
+                    </div>
+                    <div class="p-2">
+                        <i class="fas fa-user-graduate fa-2x text-info mb-2"></i>
+                        <h6>Jane Smith</h6>
+                        <small>Enrolled: Leadership Essentials</small>
+                    </div>
+                    <div class="p-2">
+                        <i class="fas fa-stopwatch fa-2x text-info mb-2"></i>
+                        <h6>Emily Davis</h6>
+                        <small>Completed: Time Management</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recruitment Section -->
+        <div class="card shadow-xl mb-4" style="background: #0e1d2b; color: #d1d5db;">
+            <div class="card-header bg-gradient-warning text-dark rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-user-plus mr-2"></i> Recruitment
+                </h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-briefcase mr-1"></i> Marketing Specialist -
+                        <span class="badge badge-pill badge-light">5 Applicants</span>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-laptop-code mr-1"></i> Junior Developer -
+                        <span class="badge badge-pill badge-light">8 Applicants</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-calendar-alt mr-1"></i> Upcoming Interviews -
+                        <span class="badge badge-pill badge-primary">3 Scheduled</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="card shadow-xl mb-4" style="background: #2b3c4c; color: #d1e7f7;">
+            <div class="card-header bg-gradient-secondary text-white rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-gift mr-2"></i> Benefits
+                </h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fas fa-heartbeat mr-2"></i> Health Insurance:
+                        <strong class="text-success">95% enrolled</strong>
+                    </li>
+                    <li>
+                        <i class="fas fa-piggy-bank mr-2"></i> Retirement Plan:
+                        <strong class="text-info">401(k) + 4% match</strong>
+                    </li>
+                    <li>
+                        <i class="fas fa-dumbbell mr-2"></i> New:
+                        <strong class="text-warning">Wellness Program May 2025</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="card shadow-xl mb-4" style="background: #1c2a48; color: #e0f2fe;">
+            <div class="card-header bg-gradient-danger text-white rounded-top">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-file-alt mr-2"></i> Reports
+                </h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-file-pdf mr-2"></i> Monthly Attendance Report (April 2025)</li>
+                    <li><i class="fas fa-chart-pie mr-2"></i> Q1 2025 Performance Summary</li>
+                    <li><i class="fas fa-user-clock mr-2"></i> Training Participation Report - 78% Rate</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Health & Safety Section -->
+    <div class="card shadow-lg mb-4 border-0" style="background: #0f172a; color: #e0f2fe;">
+        <div class="card-header bg-gradient-warning text-dark rounded-top">
+            <h3 class="card-title mb-0">
+                <i class="fas fa-shield-alt mr-2"></i> Workplace Health & Safety
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5>Recent Safety Inspections</h5>
+                    <ul>
+                        <li><i class="fas fa-check-circle mr-2"></i> Building Inspection - Passed</li>
+                        <li><i class="fas fa-exclamation-circle mr-2"></i> Fire Drills - Next week</li>
+                        <li><i class="fas fa-exclamation-triangle mr-2"></i> PPE Training - June 2025</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Accident Reports</h5>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle mr-2"></i> Minor injury - Warehouse (April 2025)</li>
+                        <li><i class="fas fa-exclamation-triangle mr-2"></i> Equipment malfunction - Office (March 2025)</li>
+                        <li><i class="fas fa-exclamation-triangle mr-2"></i> No incidents reported in April 2025</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

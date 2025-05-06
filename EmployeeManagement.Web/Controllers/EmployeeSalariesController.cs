@@ -22,8 +22,7 @@ namespace EmployeeManagement.Web.Controllers
         // GET: EmployeeSalaries
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.EmployeeSalaries.Include(e => e.Employee);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.EmployeeSalaries.ToListAsync());
         }
 
         // GET: EmployeeSalaries/Details/5
@@ -35,7 +34,6 @@ namespace EmployeeManagement.Web.Controllers
             }
 
             var employeeSalary = await _context.EmployeeSalaries
-                .Include(e => e.Employee)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employeeSalary == null)
             {
@@ -48,7 +46,6 @@ namespace EmployeeManagement.Web.Controllers
         // GET: EmployeeSalaries/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
             return View();
         }
 
@@ -57,25 +54,18 @@ namespace EmployeeManagement.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,BasicSalary,Bonus,PaymentDate,Description")] EmployeeSalary employeeSalary)
+        public async Task<IActionResult> Create( EmployeeSalary employeeSalary)
         {
             if (ModelState.IsValid)
             {
+                employeeSalary.CreatedById = "Shane Dean";
+                employeeSalary.CreatedOn = DateTime.Now;
                 _context.Add(employeeSalary);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            // Log model errors if save failed
-            foreach (var modelError in ModelState.Values.SelectMany(v => v.Errors))
-            {
-                Console.WriteLine(modelError.ErrorMessage);
-            }
-
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", employeeSalary.EmployeeId);
             return View(employeeSalary);
         }
-
 
         // GET: EmployeeSalaries/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -90,7 +80,6 @@ namespace EmployeeManagement.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", employeeSalary.EmployeeId);
             return View(employeeSalary);
         }
 
@@ -99,7 +88,7 @@ namespace EmployeeManagement.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,BasicSalary,Bonus,PaymentDate,Description")] EmployeeSalary employeeSalary)
+        public async Task<IActionResult> Edit(int id, EmployeeSalary employeeSalary)
         {
             if (id != employeeSalary.Id)
             {
@@ -110,6 +99,8 @@ namespace EmployeeManagement.Web.Controllers
             {
                 try
                 {
+                    employeeSalary.ModifiedById = "Shane Dean";
+                    employeeSalary.ModifiedOn = DateTime.Now;
                     _context.Update(employeeSalary);
                     await _context.SaveChangesAsync();
                 }
@@ -126,7 +117,6 @@ namespace EmployeeManagement.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", employeeSalary.EmployeeId);
             return View(employeeSalary);
         }
 
@@ -139,7 +129,6 @@ namespace EmployeeManagement.Web.Controllers
             }
 
             var employeeSalary = await _context.EmployeeSalaries
-                .Include(e => e.Employee)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employeeSalary == null)
             {

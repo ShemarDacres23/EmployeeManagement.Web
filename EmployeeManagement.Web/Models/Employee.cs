@@ -1,7 +1,10 @@
-﻿namespace EmployeeManagement.Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmployeeManagement.Web.Models
 {
     public class Employee : UserActivity
     {
+        [Key]
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public string FullName { get; set; }

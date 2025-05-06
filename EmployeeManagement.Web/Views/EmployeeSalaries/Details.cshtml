@@ -4,45 +4,106 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<p>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back to List</a>
+</p>
 
-<div>
-    <h4>EmployeeSalary</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BasicSalary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BasicSalary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bonus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bonus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h3 class="card-title">Employee Salary Details</h3>
+    </div>
+
+    <div class="card-body">
+     
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EmployeeId)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.EmployeeId)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FullName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.FullName)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.BasicSalary)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.BasicSalary)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Overtime)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Overtime)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NetPay)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NetPay)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PaymentDate)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PaymentDate)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedById)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedById)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedOn)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ModifiedById)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.ModifiedById)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.ModifiedOn)</dd>
+        </dl>
+
+        <hr />
+
+        <h5 class="mt-4 mb-3">
+             Salary Slip
+            <img class="animation__shake" src="~/AdminLTE/dist/img/EducaLogo.png" alt="AdminLTELogo" height="30" width="30">
+        </h5>
+
+        <table id="example1" class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Component</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="fw-semibold">Employee ID</td>
+                    <td>@Model.EmployeeId</td>
+                </tr>
+                <tr>
+                    <td class="fw-semibold">Basic Salary</td>
+                    <td class="text-success">@Model.BasicSalary.ToString("C")</td>
+                </tr>
+                <tr>
+                    <td class="fw-semibold">Overtime</td>
+                    <td class="text-primary">@Model.Overtime.ToString("C")</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="fw-bold text-uppercase">NHT Deductions</td>
+                    <td class="fw-bold text-uppercase text-danger">@Model.NHT.ToString("C")</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="fw-bold text-uppercase">NIS Deductions</td>
+                    <td class="fw-bold text-uppercase text-danger">@Model.NIS.ToString("C")</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="fw-bold text-uppercase">Education Tax</td>
+                    <td class="fw-bold text-uppercase text-danger">@Model.EducationTax.ToString("C")</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="fw-bold text-uppercase">Net Pay</td>
+                    <td class="fw-bold text-uppercase text-success">@Model.NetPay.ToString("C")</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    <div class="card-footer">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+            <i class="fa fa-edit"></i> Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fa fa-list"></i> Back to List
+        </a>
+    </div>
 </div>

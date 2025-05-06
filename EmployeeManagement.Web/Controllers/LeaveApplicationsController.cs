@@ -33,10 +33,7 @@ namespace EmployeeManagement.Web.Controllers
         // GET: LeaveApplications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var leaveApplication = await _context.LeaveApplications
                 .Include(l => l.ApplicationStatus)
@@ -44,29 +41,18 @@ namespace EmployeeManagement.Web.Controllers
                 .Include(l => l.Employee)
                 .Include(l => l.LeaveType)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leaveApplication == null)
-            {
-                return NotFound();
-            }
+            if (leaveApplication == null) return NotFound();
 
             return View(leaveApplication);
         }
 
         // GET: LeaveApplications/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            // Make the async call to the database for dropdowns
-            var durationList = await _context.SystemCodeDetails
-                                              .Include(x => x.SystemCode)
-                                              .Where(y => y.SystemCode.Code == "LeaveDuration")
-                                              .ToListAsync();
-            var employeeList = await _context.Employees.ToListAsync();
-            var leaveTypeList = await _context.LeaveTypes.ToListAsync();
-
-            // Pass the results to ViewData for the dropdown lists
-            ViewData["DurationId"] = new SelectList(durationList, "Id", "Description");
-            ViewData["EmployeeId"] = new SelectList(employeeList, "Id", "FullName");
-            ViewData["LeaveTypeId"] = new SelectList(leaveTypeList, "Id", "Name");
+            ViewData["DurationId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode)
+                .Where(y => y.SystemCode.Code == "LeaveDuration"), "Id", "Description");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            ViewData["LeaveTypeId"] = new SelectList(_context.LeaveTypes, "Id", "Name");
             return View();
         }
 
@@ -75,11 +61,10 @@ namespace EmployeeManagement.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LeaveApplication leaveApplication)
         {
-            // Fetch the "Pending" status
             var pendingStatus = await _context.SystemCodeDetails
-                                              .Include(x => x.SystemCode)
-                                              .Where(y => y.SystemCode.Code == "Pending" && y.SystemCode.Code == "LeaveApprovalCode")
-                                              .FirstOrDefaultAsync();
+                .Include(x => x.SystemCode)
+                .Where(y => y.Code == "Pending" && y.SystemCode.Code == "LeaveApprovalCode")
+                .FirstOrDefaultAsync();
 
             if (pendingStatus == null)
             {
@@ -92,19 +77,30 @@ namespace EmployeeManagement.Web.Controllers
                 leaveApplication.CreatedOn = DateTime.Now;
                 leaveApplication.CreatedById = "Shane Dean";
                 leaveApplication.StatusId = pendingStatus.Id;
-
                 _context.Add(leaveApplication);
-                await _context.SaveChangesAsync();  // Ensure async saving
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Repopulate dropdown lists if ModelState is invalid
-            ViewData["DurationId"] = new SelectList(await _context.SystemCodeDetails
-                                                                  .Include(x => x.SystemCode)
-                                                                  .Where(y => y.SystemCode.Code == "LeaveDuration")
-                                                                  .ToListAsync(), "Id", "Description", leaveApplication.DurationId);
-            ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", leaveApplication.EmployeeId);
-            ViewData["LeaveTypeId"] = new SelectList(await _context.LeaveTypes.ToListAsync(), "Id", "Name", leaveApplication.LeaveTypeId);
+            ViewData["DurationId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode)
+                .Where(y => y.SystemCode.Code == "LeaveDuration"), "Id", "Description", leaveApplication.DurationId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveApplication.EmployeeId);
+            ViewData["LeaveTypeId"] = new SelectList(_context.LeaveTypes, "Id", "Name", leaveApplication.LeaveTypeId);
+            return View(leaveApplication);
+        }
+
+        // GET: LeaveApplications/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var leaveApplication = await _context.LeaveApplications.FindAsync(id);
+            if (leaveApplication == null) return NotFound();
+
+            ViewData["DurationId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode)
+                .Where(y => y.SystemCode.Code == "LeaveDuration"), "Id", "Description", leaveApplication.DurationId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveApplication.EmployeeId);
+            ViewData["LeaveTypeId"] = new SelectList(_context.LeaveTypes, "Id", "Name", leaveApplication.LeaveTypeId);
             return View(leaveApplication);
         }
 
@@ -113,60 +109,36 @@ namespace EmployeeManagement.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, LeaveApplication leaveApplication)
         {
-            if (id != leaveApplication.Id)
-            {
-                return NotFound();
-            }
+            if (id != leaveApplication.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                var pendingStatus = await _context.SystemCodeDetails
-                                                  .Include(x => x.SystemCode)
-                                                  .Where(y => y.SystemCode.Code == "Pending" && y.SystemCode.Code == "LeaveApprovalCode")
-                                                  .FirstOrDefaultAsync();
-
-                if (pendingStatus == null)
-                {
-                    ModelState.AddModelError(string.Empty, "The Pending status could not be found.");
-                    return View(leaveApplication);
-                }
-
                 try
                 {
-                    leaveApplication.ModifiedById = "Shane Dean";
-                    leaveApplication.ModifiedOn = DateTime.Now;
-                    leaveApplication.StatusId = pendingStatus.Id;
+                    leaveApplication.CreatedOn = DateTime.Now;
+                    leaveApplication.CreatedById = "Shane Dean";
                     _context.Update(leaveApplication);
-                    await _context.SaveChangesAsync();  // Ensure async saving
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LeaveApplicationExists(leaveApplication.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!LeaveApplicationExists(leaveApplication.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
 
-            // Repopulate dropdown lists if ModelState is invalid
-            ViewData["DurationId"] = new SelectList(await _context.SystemCodeDetails.ToListAsync(), "Id", "Description", leaveApplication.DurationId);
-            ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", leaveApplication.EmployeeId);
-            ViewData["LeaveTypeId"] = new SelectList(await _context.LeaveTypes.ToListAsync(), "Id", "Name", leaveApplication.LeaveTypeId);
+            ViewData["DurationId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCode)
+                .Where(y => y.SystemCode.Code == "LeaveDuration"), "Id", "Description", leaveApplication.DurationId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveApplication.EmployeeId);
+            ViewData["LeaveTypeId"] = new SelectList(_context.LeaveTypes, "Id", "Name", leaveApplication.LeaveTypeId);
             return View(leaveApplication);
         }
 
         // GET: LeaveApplications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var leaveApplication = await _context.LeaveApplications
                 .Include(l => l.ApplicationStatus)
@@ -174,10 +146,7 @@ namespace EmployeeManagement.Web.Controllers
                 .Include(l => l.Employee)
                 .Include(l => l.LeaveType)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leaveApplication == null)
-            {
-                return NotFound();
-            }
+            if (leaveApplication == null) return NotFound();
 
             return View(leaveApplication);
         }
@@ -191,9 +160,8 @@ namespace EmployeeManagement.Web.Controllers
             if (leaveApplication != null)
             {
                 _context.LeaveApplications.Remove(leaveApplication);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
